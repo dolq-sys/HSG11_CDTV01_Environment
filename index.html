@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vocabulary 01 – Environment</title>
+<meta name="description" content="Đội tuyển HSG Tiếng Anh 11 – Chuyên đề từ vựng 01: Environment. Làm bài trực tuyến, tự kiểm tra từng bài.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20261103a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232f6b47'/%3E%3Cpath d='M9 23c0-9 6-14 15-14-1 9-6 14-15 14z' fill='%23fff'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- ============ MÀN HÌNH BẮT ĐẦU ============ -->
+<main id="startScreen" class="screen">
+  <div class="card start">
+    <div class="cover">
+      <svg class="cover-art" viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="56" fill="#e4f1e8"/>
+        <path d="M30 86c0-30 20-48 58-50-3 32-22 50-58 50z" fill="#3f8f5a"/>
+        <path d="M34 82c14-14 28-24 46-34" stroke="#e4f1e8" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M14 92q46 14 92 0" stroke="#4a90c8" stroke-width="4" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="kicker">Đội tuyển Học sinh giỏi · Tiếng Anh 11</div>
+        <h1>Chuyên đề từ vựng 01<br><span>Environment</span></h1>
+      </div>
+    </div>
+
+    <form id="startForm" autocomplete="on">
+      <div class="frow">
+        <div class="field"><label for="inName">Họ và tên</label><input id="inName" name="name" required maxlength="60" placeholder="Ví dụ: Nguyễn Văn An"></div>
+        <div class="field small"><label for="inClass">Lớp</label><input id="inClass" name="cls" required maxlength="30" placeholder="Ví dụ: 11A1"></div>
+      </div>
+      <ul class="rules">
+        <li>Gồm 2 bài đọc (viết heading), câu hỏi đọc hiểu, bảng từ vựng có hình minh hoạ và 6 bài luyện tập.</li>
+        <li>Làm xong bài nào, bấm <b>Kiểm tra</b> để biết mình đúng hay chưa (phần heading và đọc hiểu: xem gợi ý). Sửa rồi kiểm tra lại bao nhiêu lần cũng được.</li>
+        <li>Bấm vào <b>từ in đậm</b> trong bài đọc để xem phiên âm, loại từ và định nghĩa.</li>
+        <li>Bôi đen một đoạn chữ ở bất kỳ đâu rồi bấm <b>Tô sáng</b> để đánh dấu. Bấm vào chỗ đã tô để bỏ.</li>
+        <li>Không giới hạn thời gian và số lần làm. Bài tự lưu trên máy; làm xong bấm <b>Nộp bài</b> để gửi cho thầy/cô.</li>
+      </ul>
+      <div class="actions">
+        <button type="button" id="btnContinue" class="btn ghost" hidden>Tiếp tục lần đang làm</button>
+        <button type="submit" id="btnStart" class="btn primary">Bắt đầu lần mới</button>
+      </div>
+      <p class="formerr" id="startErr" role="alert"></p>
+    </form>
+  </div>
+  <div class="card" id="startHistory" hidden><h3 class="ch">Các lần đã nộp</h3><div class="histwrap"></div></div>
+</main>
+
+<!-- ============ MÀN HÌNH LÀM BÀI ============ -->
+<div id="examScreen" class="app" hidden>
+  <header class="topbar">
+    <div class="tb-left"><div class="brand">Vocabulary 01 · Environment</div><div class="who"><span id="tbName"></span><small id="tbClass"></small></div></div>
+    <div class="tb-mid"><div class="reviewtag" id="reviewTag" hidden></div></div>
+    <div class="tb-right">
+      <span class="stat" title="Số câu đã làm"><b id="cntDone">0</b>/<span id="cntAll">89</span></span>
+      <button class="btn small ghost tonly" id="btnNextWrong" type="button" hidden>Câu sai tiếp theo</button>
+      <button class="btn small ghost" id="btnClearHl" type="button" title="Xoá tất cả chỗ tô sáng">Xoá tô sáng</button>
+      <button class="btn small primary" id="btnSubmit" type="button">Nộp bài</button>
+      <button class="btn small primary" id="btnCloseReview" type="button" hidden>Đóng xem lại</button>
+    </div>
+  </header>
+  <nav class="secnav" id="secNav" aria-label="Các phần"></nav>
+  <div class="reviewbanner" id="reviewBanner" hidden></div>
+  <main class="stage" id="examBody"></main>
+  <footer class="botbar">
+    <button class="btn ghost navbtn" id="btnPrevV" type="button">&larr; <span>Phần trước</span></button>
+    <div class="chkbar"><div class="botinfo" id="chkInfo"></div><button class="btn check" id="btnCheck" type="button">Kiểm tra bài này</button></div>
+    <button class="btn primary navbtn" id="btnNextV" type="button"><span>Phần tiếp</span> &rarr;</button>
+  </footer>
+</div>
+
+<!-- ============ MÀN HÌNH KẾT QUẢ ============ -->
+<main id="resultScreen" class="screen" hidden>
+  <div class="card result" id="resultCard"></div>
+  <div class="card" id="resultHistory"><h3 class="ch">Lịch sử các lần làm</h3><div class="histwrap"></div></div>
+</main>
+
+<div class="overlay" id="confirmModal" hidden>
+  <div class="ovbox" role="dialog" aria-labelledby="cfTitle">
+    <h3 id="cfTitle">Nộp bài?</h3><p id="cfText"></p>
+    <div class="actions"><button class="btn ghost" id="cfNo" type="button">Làm tiếp</button><button class="btn primary" id="cfYes" type="button">Nộp bài</button></div>
+  </div>
+</div>
+
+<div id="gloss" class="gloss" role="dialog" aria-live="polite" hidden></div>
+<button type="button" id="hlTip" class="hltip" hidden></button>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="config.js?v=20261103a"></script>
+<script src="core.js?v=20261103a"></script>
+<script src="art.js?v=20261103a"></script>
+<script src="content.js?v=20261103a"></script>
+<script src="app.js?v=20261103a"></script>
+</body>
+</html>
