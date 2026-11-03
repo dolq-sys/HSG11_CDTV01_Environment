@@ -140,7 +140,80 @@
     var pt = e.target.closest('.ptab');
     if (pt) { $$('.ptab', pt.parentNode).forEach(function (x) { x.classList.toggle('active', x === pt); }); $$('.pt', pt.closest('.inner')).forEach(function (x) { x.hidden = x.dataset.pt !== pt.dataset.pt; }); return; }
     var c1 = e.target.closest('.chk1'); if (c1) { doCheck([c1.dataset.chk], secOf(c1.dataset.chk).id, c1); return; }
+    var vt = e.target.closest('.vset-tab'); if (vt) { showSet(+vt.dataset.set); return; }
+    var fa = e.target.closest('.flipall, .unflip');
+    if (fa) { $$('.vset[data-set="' + fa.dataset.set + '"] .fcard').forEach(function (c) { c.classList.toggle('flipped', fa.classList.contains('flipall')); }); return; }
+    var fc = e.target.closest('.fcard'); if (fc && window.getSelection().isCollapsed) { fc.classList.toggle('flipped'); return; }
+    var tile = e.target.closest('.mtile'); if (tile) { GAME.pick(tile); return; }
+    var gb = e.target.closest('[data-game]'); if (gb) { GAME[gb.dataset.game](+gb.closest('.mgame').dataset.set); return; }
   });
+  $('#examBody').addEventListener('keydown', function (e) {
+    var fc = e.target.closest && e.target.closest('.fcard, .mtile');
+    if (fc && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); if (fc.classList.contains('fcard')) fc.classList.toggle('flipped'); else GAME.pick(fc); }
+  });
+  function showSet(k) {
+    $$('.vset-tab').forEach(function (t) { t.classList.toggle('active', +t.dataset.set === k); });
+    $$('.vset').forEach(function (s) { s.hidden = +s.dataset.set !== k; });
+    var pane = $('.vsets').closest('.pane'); if (pane) pane.scrollTo({ top: 0 });
+  }
+
+  /* ---------- trò chơi nối từ ---------- */
+  var GAME = (function () {
+    var SETS = VOCAB_CONTENT.SETS, ST = {};
+    function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+    function box(k) { return $('.mgame[data-set="' + k + '"]'); }
+    function intro(k) {
+      var n = SETS[k].pairs.length, r = Math.ceil(n / 6);
+      box(k).innerHTML = '<div class="mg-intro"><div><div class="mg-title">Nối từ – Set ' + (k + 1) + '</div><div class="muted">' + n + ' cặp từ, chia ' + r + ' vòng. Chọn một từ tiếng Anh rồi chọn nghĩa tiếng Việt đúng.</div></div>' +
+        '<button type="button" class="btn check" data-game="start">Bắt đầu chơi</button></div>';
+    }
+    function start(k) {
+      var p = shuffle(SETS[k].pairs.map(function (x, i) { return { en: x.en, vi: x.vi, art: x.art, id: i }; })), n = Math.ceil(p.length / 6), rounds = [], at = 0;
+      for (var r = 0; r < n; r++) { var size = Math.floor(p.length / n) + (r < p.length % n ? 1 : 0); rounds.push(p.slice(at, at + size)); at += size; }
+      ST[k] = { rounds: rounds, r: 0, miss: 0, left: 0, sel: null, t0: Date.now() };
+      round(k);
+    }
+    function round(k) {
+      var s = ST[k], pairs = s.rounds[s.r], tiles = [];
+      pairs.forEach(function (x) { tiles.push({ id: x.id, t: 'en', txt: x.en, art: x.art }); tiles.push({ id: x.id, t: 'vi', txt: x.vi }); });
+      s.left = pairs.length; s.sel = null;
+      box(k).innerHTML = '<div class="mg-bar"><div class="mg-title">Nối từ – Set ' + (k + 1) + '</div><div class="mg-stat"><span>Vòng <b>' + (s.r + 1) + '/' + s.rounds.length + '</b></span><span>Còn <b class="mg-left">' + s.left + '</b> cặp</span><span>Sai <b class="mg-miss">' + s.miss + '</b> lần</span></div></div>' +
+        '<div class="mg-grid">' + shuffle(tiles).map(function (t) {
+          return '<div class="mtile ' + t.t + '" tabindex="0" role="button" data-id="' + t.id + '" data-t="' + t.t + '">' + (t.art ? '<div class="mart">' + t.art + '</div>' : '') + '<span>' + esc(t.txt) + '</span></div>';
+        }).join('') + '</div>';
+    }
+    function pick(el) {
+      var k = +el.closest('.mgame').dataset.set, s = ST[k];
+      if (!s || el.classList.contains('gone') || el.classList.contains('ok') || s.lock) return;
+      if (!s.sel) { s.sel = el; el.classList.add('sel'); return; }
+      if (s.sel === el) { el.classList.remove('sel'); s.sel = null; return; }
+      if (s.sel.dataset.t === el.dataset.t) { s.sel.classList.remove('sel'); s.sel = el; el.classList.add('sel'); return; }
+      var a = s.sel, b = el; s.sel = null; a.classList.remove('sel');
+      if (a.dataset.id === b.dataset.id) {
+        a.classList.add('ok'); b.classList.add('ok'); s.left--;
+        $('.mg-left', box(k)).textContent = s.left;
+        setTimeout(function () { a.classList.add('gone'); b.classList.add('gone'); }, 380);
+        if (!s.left) setTimeout(function () { done(k); }, 900);
+      } else {
+        s.miss++; $('.mg-miss', box(k)).textContent = s.miss;
+        a.classList.add('bad'); b.classList.add('bad'); s.lock = true;
+        setTimeout(function () { a.classList.remove('bad'); b.classList.remove('bad'); s.lock = false; }, 600);
+      }
+    }
+    function done(k) {
+      var s = ST[k], last = s.r === s.rounds.length - 1;
+      var msg = last ? 'Hoàn thành Set ' + (k + 1) + '!' : 'Xong vòng ' + (s.r + 1) + '/' + s.rounds.length;
+      var sec = Math.round((Date.now() - s.t0) / 1000);
+      $('.mg-grid', box(k)).insertAdjacentHTML('afterend', '<div class="mg-done"><div class="mg-big">' + msg + '</div>' +
+        (last ? '<div class="muted">Sai ' + s.miss + ' lần · ' + Math.floor(sec / 60) + ' phút ' + (sec % 60) + ' giây' + (s.miss ? ' – chơi lại để không sai lần nào nhé.' : ' – không sai lần nào, rất tốt!') + '</div>' : '') +
+        '<div class="actions" style="justify-content:center">' + (last ? '<button type="button" class="btn ghost" data-game="start">Chơi lại</button>' + (k < SETS.length - 1 ? '<button type="button" class="btn check" data-game="nextSet">Sang Set ' + (k + 2) + '</button>' : '') : '<button type="button" class="btn check" data-game="next">Vòng tiếp</button>') + '</div></div>');
+      $('.mg-grid', box(k)).hidden = true;
+    }
+    function next(k) { ST[k].r++; round(k); }
+    function nextSet(k) { showSet(k + 1); }
+    SETS.forEach(function (_, k) { intro(k); });
+    return { pick: pick, start: start, next: next, nextSet: nextSet };
+  })();
 
   /* ---------- đánh dấu đúng / sai ---------- */
   function clearMark(id) {

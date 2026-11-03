@@ -93,6 +93,8 @@ var VOCAB_CONTENT = (function () {
     'economical': ['economical', '/ˌiːkəˈnɒmɪkl/', 'adjective', 'using money, time or resources carefully, without waste'],
     'rebound effect': ['rebound effect', '/ˈriːbaʊnd ɪˈfekt/', 'noun', 'a situation in which the savings from greater efficiency are reduced because people use more'],
     'stringent': ['stringent', '/ˈstrɪndʒənt/', 'adjective', '(of rules or standards) very strict'],
+    'a case in point': ['a case in point', '/ə keɪs ɪn pɔɪnt/', 'idiom', 'a good example of the thing being discussed'],
+    'all but': ['all but + adj', '/ɔːl bʌt/', 'phrase', 'almost completely'],
     'tip the balance': ['tip the balance', '/tɪp ðə ˈbæləns/', 'idiom', 'to be the factor that decides the result of a situation'],
     'mitigate': ['mitigate', '/ˈmɪtɪɡeɪt/', 'verb', 'to make something less harmful, serious or painful'],
     'irreparable': ['irreparable', '/ɪˈrepərəbl/', 'adjective', 'too bad or too serious to be repaired or put right']
@@ -158,17 +160,17 @@ var VOCAB_CONTENT = (function () {
       ['rebound effect', 'n', 'R2:5', 'hiệu ứng dội ngược (tiết kiệm năng lượng → tiêu dùng nhiều hơn)', '', 'rebound effect', 'rebound effect']
     ] },
     { group: 'Từ học thuật C1–C2', items: [
-      ['cataclysmic / precipitous', 'adj', 'R1:1', 'thảm khốc / dốc đứng, đột ngột', '<i>a precipitous decline</i>', 'precipitous'],
+      ['cataclysmic / precipitous', 'adj', 'R1:1', 'thảm khốc / dốc đứng, đột ngột', '<i>a precipitous decline</i>', 'precipitous', 'precipitous'],
       ['precipitate', 'v', 'R1:1', 'gây ra (đột ngột)', '<i>precipitate a crisis</i>', 'precipitate'],
       ['circumspect', 'adj', 'R1:1', 'thận trọng', '', 'circumspect'],
-      ['inexorable', 'adj', 'R1:2', 'không thể ngăn cản', '<i>the inexorable rise of</i>', 'inexorable'],
+      ['inexorable', 'adj', 'R1:2', 'không thể ngăn cản', '<i>the inexorable rise of</i>', 'inexorable', 'inexorable'],
       ['illicit', 'adj', 'R1:2', 'bất hợp pháp', '≠ <i>elicit</i> (gợi ra)', 'illicit'],
       ['compound / exacerbate', 'v', 'R1:2', 'làm trầm trọng thêm', '<i>compound the problem</i> (T1 [2], T2 [3])', 'compound'],
       ['inextricably', 'adv', 'R1:3', 'không thể tách rời', '<i>inextricably linked / interdependent</i>', 'inextricably'],
-      ['proliferate', 'v', 'R1:3', 'sinh sôi nảy nở nhanh', '<i>proliferation</i> (n)', 'proliferate'],
+      ['proliferate', 'v', 'R1:3', 'sinh sôi nảy nở nhanh', '<i>proliferation</i> (n)', 'proliferate', 'proliferate'],
       ['imperil', 'v', 'R1:3', 'đặt vào vòng nguy hiểm', '= <i>jeopardize, endanger</i>', 'imperil'],
       ['disproportionately', 'adv', 'R1:5', 'một cách không cân xứng', '<i>be disproportionately affected</i>', 'disproportionately'],
-      ['ubiquitous', 'adj', 'R2:1', 'có mặt khắp nơi', '<i>ubiquity</i> (n)', 'ubiquitous'],
+      ['ubiquitous', 'adj', 'R2:1', 'có mặt khắp nơi', '<i>ubiquity</i> (n)', 'ubiquitous', 'ubiquitous'],
       ['malaise', 'n', 'R2:2', 'căn bệnh (xã hội), sự trì trệ', '<i>a deeper / economic malaise</i>', 'malaise'],
       ['epitomise', 'v', 'R2:2', 'là hình mẫu tiêu biểu của', '<i>the epitome of</i>', 'epitomise'],
       ['piecemeal', 'adj / adv', 'R2:4', 'chắp vá, từng phần', '<i>a piecemeal approach</i>', 'piecemeal'],
@@ -179,17 +181,17 @@ var VOCAB_CONTENT = (function () {
   var IDIOMS = [
     ['be in the throes of', 'R1:1', 'đang ở giữa (giai đoạn khủng hoảng)', 'in the throes of'],
     ['succumb to', 'R1:2', 'không chống chọi nổi', 'succumb to'],
-    ['a case in point', 'R1:3', 'một ví dụ điển hình', null],
-    ['all but + adj', 'R1:4', 'gần như hoàn toàn (<i>all but uninhabitable</i>)', null],
-    ['bear the brunt of', 'R1:5', 'hứng chịu hậu quả nặng nhất', 'bear the brunt'],
-    ['stem the tide (of)', 'R1:5', 'ngăn chặn làn sóng', 'stem the tide'],
+    ['a case in point', 'R1:3', 'một ví dụ điển hình', 'a case in point'],
+    ['all but + adj', 'R1:4', 'gần như hoàn toàn (<i>all but uninhabitable</i>)', 'all but'],
+    ['bear the brunt of', 'R1:5', 'hứng chịu hậu quả nặng nhất', 'bear the brunt', 'bear the brunt of'],
+    ['stem the tide (of)', 'R1:5', 'ngăn chặn làn sóng', 'stem the tide', 'stem the tide'],
     ['pay lip service to', 'R1:5', 'nói suông, ủng hộ ngoài miệng', 'pay lip service to'],
-    ['teeter on the brink of', 'R1:5', 'chênh vênh bên bờ vực', 'teeter on the brink of'],
+    ['teeter on the brink of', 'R1:5', 'chênh vênh bên bờ vực', 'teeter on the brink of', 'teeter on the brink of'],
     ['starve sth of sth', 'R2:3', 'làm cạn kiệt', 'starve of'],
-    ['a drop in the ocean', 'R2:4', 'muối bỏ bể', 'a drop in the ocean'],
-    ['kick the can down the road', 'R2:4', 'trì hoãn giải quyết vấn đề', 'kick the can down the road'],
+    ['a drop in the ocean', 'R2:4', 'muối bỏ bể', 'a drop in the ocean', 'a drop in the ocean'],
+    ['kick the can down the road', 'R2:4', 'trì hoãn giải quyết vấn đề', 'kick the can down the road', 'kick the can down the road'],
     ['come to pass', 'R2:4', 'xảy ra, thành hiện thực', 'come to pass'],
-    ['tip the balance', 'R2:5', 'làm thay đổi cán cân', 'tip the balance']
+    ['tip the balance', 'R2:5', 'làm thay đổi cán cân', 'tip the balance', 'tip the balance']
   ];
 
   /* ---------- Bài tập ---------- */
@@ -332,29 +334,47 @@ var VOCAB_CONTENT = (function () {
       '<div class="qlist">' + qs + '</div></div></div></section>';
   }
 
+  /* nghĩa ngắn cho trò nối từ (khi nghĩa đầy đủ quá dài) */
+  var SHORT_VI = {
+    'genetic bottleneck': 'nút thắt cổ chai di truyền',
+    'edge effects': 'hiệu ứng rìa',
+    'trophic cascade': 'thác dinh dưỡng',
+    'extirpate': 'tiêu diệt tận gốc',
+    'run-off': 'dòng chảy tràn',
+    'externalities': 'ngoại ứng',
+    'greenwashing': '"tẩy xanh"',
+    'rebound effect': 'hiệu ứng dội ngược',
+    'all but + adj': 'gần như hoàn toàn'
+  };
+  function plain(s) { return String(s).replace(/<[^>]+>/g, ''); }
+  function shortVi(word, vi) { return SHORT_VI[word] || plain(vi).replace(/\s*\(.*\)\s*$/, '').trim(); }
+  var SETS = [];
+  VOCAB.forEach(function (g) {
+    SETS.push({ name: g.group, items: g.items.map(function (it) { var gl = it[5] && GLOSS[it[5]]; return { en: it[0], pos: it[1], at: it[2], vi: it[3], col: it[4], ipa: gl ? gl[1] : '', art: it[6] ? VOCAB_ART[it[6]] : '' }; }) });
+  });
+  SETS.push({ name: 'Collocation và idiom', items: IDIOMS.map(function (x) { var gl = x[3] && GLOSS[x[3]]; return { en: x[0], pos: gl ? gl[2] : 'phrase', at: x[1], vi: x[2], col: '', ipa: gl ? gl[1] : '', art: x[4] ? VOCAB_ART[x[4]] : '' }; }) });
+  SETS.forEach(function (s) { s.pairs = s.items.map(function (it) { return { en: it.en, vi: shortVi(it.en, it.vi), art: it.art }; }); });
+
   function vocabView() {
     function card(it) {
-      var g = it[5] && GLOSS[it[5]], art = it[6] && VOCAB_ART[it[6]];
-      var pos = it[2].split(':');
-      return '<article class="vcard' + (art ? ' has-art' : '') + '">' + (art ? '<div class="vart">' + art + '</div>' : '') +
-        '<div class="vbody hl"><div class="vword"><b>' + esc(it[0]) + '</b> <span class="vpos">(' + it[1] + ')</span></div>' +
-        (g ? '<div class="vipa">' + esc(g[1]) + '</div>' : '') +
-        '<div class="vmean">' + it[3] + '</div>' + (it[4] ? '<div class="vcol">' + it[4] + '</div>' : '') +
-        (g ? '<div class="vdef">' + esc(g[3]) + '</div>' : '') + '</div>' +
-        '<button type="button" class="vat golink" data-goto="' + it[2] + '">T' + pos[0].slice(1) + ' [' + pos[1] + ']</button></article>';
+      var pos = it.at.split(':');
+      return '<div class="fcard' + (it.art ? ' has-art' : '') + '" tabindex="0" role="button" aria-label="' + esc(it.en) + ' – bấm để lật">' +
+        '<div class="fin"><div class="ff front">' + (it.art ? '<div class="fart">' + it.art + '</div>' : '') +
+        '<div class="fword">' + esc(it.en) + '</div>' + (it.ipa ? '<div class="fipa">' + esc(it.ipa) + '</div>' : '') +
+        '<div class="fpos">' + esc(it.pos) + '</div><span class="fhint">Bấm để lật</span></div>' +
+        '<div class="ff back"><div class="fvi">' + it.vi + '</div>' + (it.col ? '<div class="fcol">' + it.col + '</div>' : '') +
+        '<span class="fen">' + esc(it.en) + '</span><button type="button" class="vat golink" data-goto="' + it.at + '">T' + pos[0].slice(1) + ' [' + pos[1] + ']</button></div></div></div>';
     }
-    var h = head('Từ vựng', 'Vocabulary from the texts', 'Bấm vào nhãn <b>T1 [2]</b>… để mở đúng đoạn trong bài đọc. Có thể tô sáng để đánh dấu từ cần nhớ.');
-    h += '<h3 class="sub">1. Thuật ngữ và từ học thuật</h3>';
-    VOCAB.forEach(function (g) { h += '<h4 class="vgroup">' + g.group + '</h4><div class="vgrid">' + g.items.map(card).join('') + '</div>'; });
-    h += '<h3 class="sub">2. Collocation và idiom trong bài</h3><div class="idioms">' + IDIOMS.map(function (x) {
-      var g = x[3] && GLOSS[x[3]], pos = x[1].split(':');
-      return '<div class="idrow hl"><div class="idw"><b>' + esc(x[0]) + '</b>' + (g ? ' <span class="vipa">' + esc(g[1]) + '</span>' : '') + '</div>' +
-        '<div class="idm">' + x[2] + (g ? '<div class="vdef">' + esc(g[3]) + '</div>' : '') + '</div>' +
-        '<button type="button" class="vat golink" data-goto="' + x[1] + '">T' + pos[0].slice(1) + ' [' + pos[1] + ']</button></div>';
-    }).join('') + '</div>';
+    var h = head('Từ vựng', 'Vocabulary from the texts', 'Học từng set: <b>bấm vào thẻ để lật</b> (mặt trước: tiếng Anh, phiên âm; mặt sau: nghĩa tiếng Việt). Học xong chơi <b>Nối từ</b> ở cuối set: chọn một từ tiếng Anh rồi chọn nghĩa đúng, đúng thì cặp đó biến mất.');
+    h += '<div class="vsets">' + SETS.map(function (s, k) { return '<button type="button" class="vset-tab' + (k ? '' : ' active') + '" data-set="' + k + '"><b>Set ' + (k + 1) + '</b><span>' + esc(s.name) + ' · ' + s.items.length + ' từ</span></button>'; }).join('') + '</div>';
+    h += SETS.map(function (s, k) {
+      return '<div class="vset" data-set="' + k + '"' + (k ? ' hidden' : '') + '>' +
+        '<div class="vset-head"><h3 class="sub">Set ' + (k + 1) + ' – ' + esc(s.name) + '</h3><div class="vset-btns"><button type="button" class="btn small ghost flipall" data-set="' + k + '">Lật hết</button><button type="button" class="btn small ghost unflip" data-set="' + k + '">Úp hết</button></div></div>' +
+        '<div class="fgrid">' + s.items.map(card).join('') + '</div>' +
+        '<div class="mgame" data-set="' + k + '"></div></div>';
+    }).join('');
     return '<section class="view single" data-sec="VOC"><div class="pane"><div class="inner wide">' + h + '</div></div></section>';
   }
-
   function singleView(sec, short, title, instr, body) {
     return '<section class="view single" data-sec="' + sec + '"><div class="pane"><div class="inner">' + head(short, title, instr) + body + '</div></div></section>';
   }
@@ -386,5 +406,5 @@ var VOCAB_CONTENT = (function () {
         '<div class="rwline"><span class="pre">→ ' + esc(m.prefix) + '</span><textarea class="rwin" rows="1" data-q="' + id + '" id="q-' + id + '" spellcheck="false"></textarea><span class="suf">' + esc(m.suffix) + '</span></div></div>';
     }).join('') + '</div>');
 
-  return { html: html, GLOSS: GLOSS };
+  return { html: html, GLOSS: GLOSS, SETS: SETS };
 })();
