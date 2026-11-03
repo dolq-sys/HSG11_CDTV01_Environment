@@ -465,3 +465,7 @@ mark.hlm { background: var(--hl); color: inherit; border-radius: 3px; padding: 0
 .vsvg .d1 { animation-delay: .7s !important; } .vsvg .d2 { animation-delay: 1.4s !important; } .vsvg .d3 { animation-delay: 2.1s !important; } .vsvg .d4 { animation-delay: 2.8s !important; } .vsvg .d5 { animation-delay: 3.5s !important; }
 @media (prefers-reduced-motion: reduce) { .vsvg * { animation: none !important; opacity: 1 !important; } }
 @media (max-width: 560px) { .vsets { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; } .vset-tab { flex: none; } }
+
+.btn.icon { padding: 6px 9px; line-height: 0; }
+.btn.icon svg { width: 20px; height: 20px; }
+#btnSound .x { display: none; } #btnSound.off .x { display: inline; } #btnSound.off .w { display: none; } #btnSound.off { opacity: .7; }

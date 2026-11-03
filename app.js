@@ -157,6 +157,33 @@
     var pane = $('.vsets').closest('.pane'); if (pane) pane.scrollTo({ top: 0 });
   }
 
+
+  /* ---------- âm thanh đúng / sai (tổng hợp bằng Web Audio, không cần file) ---------- */
+  var SFX = (function () {
+    var ctx = null, on = true;
+    try { on = localStorage.getItem('vocab_sound') !== 'off'; } catch (e) {}
+    function ac() { if (!ctx) { var C = window.AudioContext || window.webkitAudioContext; if (!C) return null; ctx = new C(); } if (ctx.state === 'suspended') ctx.resume(); return ctx; }
+    function tone(f, t0, dur, type, vol, f2) {
+      var c = ac(); if (!c) return;
+      var o = c.createOscillator(), g = c.createGain(), t = c.currentTime + t0;
+      o.type = type || 'sine'; o.frequency.setValueAtTime(f, t); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t + dur);
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol || 0.18, t + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(c.destination); o.start(t); o.stop(t + dur + 0.05);
+    }
+    var S = {
+      ok: function () { tone(784, 0, 0.16, 'sine', 0.2); tone(1175, 0.09, 0.28, 'sine', 0.18); },
+      bad: function () { tone(220, 0, 0.22, 'square', 0.07, 150); tone(165, 0.12, 0.28, 'square', 0.06, 110); },
+      half: function () { tone(660, 0, 0.18, 'triangle', 0.16); tone(587, 0.12, 0.24, 'triangle', 0.14); },
+      win: function () { [523, 659, 784, 1047].forEach(function (f, i) { tone(f, i * 0.11, 0.3, 'triangle', 0.16); }); },
+      tap: function () { tone(1200, 0, 0.05, 'sine', 0.06); }
+    };
+    function play(n) { if (on && S[n]) try { S[n](); } catch (e) {} }
+    function setOn(v) { on = v; try { localStorage.setItem('vocab_sound', v ? 'on' : 'off'); } catch (e) {} upd(); if (v) play('ok'); }
+    function upd() { var b = $('#btnSound'); if (!b) return; b.classList.toggle('off', !on); b.title = on ? 'Tắt âm thanh' : 'Bật âm thanh'; b.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+    document.addEventListener('DOMContentLoaded', upd); setTimeout(upd, 0);
+    return { play: play, toggle: function () { setOn(!on); } };
+  })();
+  $('#btnSound').onclick = function () { SFX.toggle(); };
   /* ---------- trò chơi nối từ ---------- */
   var GAME = (function () {
     var SETS = VOCAB_CONTENT.SETS, ST = {};
@@ -185,17 +212,17 @@
     function pick(el) {
       var k = +el.closest('.mgame').dataset.set, s = ST[k];
       if (!s || el.classList.contains('gone') || el.classList.contains('ok') || s.lock) return;
-      if (!s.sel) { s.sel = el; el.classList.add('sel'); return; }
+      if (!s.sel) { s.sel = el; el.classList.add('sel'); SFX.play('tap'); return; }
       if (s.sel === el) { el.classList.remove('sel'); s.sel = null; return; }
       if (s.sel.dataset.t === el.dataset.t) { s.sel.classList.remove('sel'); s.sel = el; el.classList.add('sel'); return; }
       var a = s.sel, b = el; s.sel = null; a.classList.remove('sel');
       if (a.dataset.id === b.dataset.id) {
-        a.classList.add('ok'); b.classList.add('ok'); s.left--;
+        a.classList.add('ok'); b.classList.add('ok'); s.left--; SFX.play(s.left ? 'ok' : 'win');
         $('.mg-left', box(k)).textContent = s.left;
         setTimeout(function () { a.classList.add('gone'); b.classList.add('gone'); }, 380);
         if (!s.left) setTimeout(function () { done(k); }, 900);
       } else {
-        s.miss++; $('.mg-miss', box(k)).textContent = s.miss;
+        s.miss++; $('.mg-miss', box(k)).textContent = s.miss; SFX.play('bad');
         a.classList.add('bad'); b.classList.add('bad'); s.lock = true;
         setTimeout(function () { a.classList.remove('bad'); b.classList.remove('bad'); s.lock = false; }, 600);
       }
@@ -327,6 +354,9 @@
         var s = SEC[secId];
         if (!s.open) {
           var c = 0; s.ids.forEach(function (id) { if (cur.marks[id] === 1) c++; });
+          var hh = 0; ids.forEach(function (id) { if (d.marks[id] === 0.5) hh++; });
+          var allOk = ids.every(function (id) { return d.marks[id] === 1 || d.marks[id] == null; });
+          SFX.play(c === s.ids.length ? 'win' : allOk ? 'ok' : ids.some(function (id) { return d.marks[id] === 0; }) ? 'bad' : 'half');
           toast(c === s.ids.length ? 'Tuyệt vời! Đúng hết ' + c + '/' + s.ids.length + ' câu.' : 'Đúng ' + c + '/' + s.ids.length + ' câu. Sửa các câu chưa đúng rồi kiểm tra lại nhé.', 4200);
         } else if (ids.length === 1) {
           var box = $('.fb[data-fb="' + ids[0] + '"]'); if (box) box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
